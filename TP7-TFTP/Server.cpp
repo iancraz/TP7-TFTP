@@ -22,7 +22,7 @@ Server::~Server()
 	delete ioServer;
 }
 
-void Server::setPortNumber(UINT32 port = 12345)
+void Server::setPortNumber(UINT32 port)
 {
 	this->portNumber = port;
 	return;

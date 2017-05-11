@@ -10,12 +10,10 @@ int main(void)
 {
 	bool isServer = initProgram();
 	bool exit = false;
-	startConnection();
 	genericEvent myEvent;
 	while (!exit)
 	{
-		myEvent = eventGenerator();
-		dispatcher(&myEvent);
+		
 	}
 	return EXIT_SUCCESS;
 }

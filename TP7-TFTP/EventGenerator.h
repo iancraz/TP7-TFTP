@@ -1,8 +1,7 @@
 #pragma once
-#include "Server.h"
-#include "Client.h"
 #include <boost/chrono.hpp>
 #include <boost/timer/timer.hpp>
+#include <cstdint>
 typedef enum {TIMEOUT, WRQ,RRQ,DATA,ACK,EV_ERROR}event_t;
 #define NO_EVENT -1
 #define SERVER 0
@@ -18,7 +17,7 @@ protected:
 	boost::timer::cpu_times pastTime;
 	int eventCode;
 	char * received;
-	int amountReceived;
+	size_t amountReceived;
 	void * pointer;
 	char type;
 };

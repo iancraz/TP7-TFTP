@@ -1,4 +1,6 @@
 #include "EventGenerator.h"
+#include "Server.h"
+#include "Client.h"
 //typedef enum { TIMER, WRQ, RRQ, DATA, ACK, EV_ERROR }event_t;
 typedef unsigned int uint;
 
@@ -20,11 +22,13 @@ int eventGenerator::getNextEvent()
 {
 	switch (this->type) {
 	case CLIENT:
-		Client * tempClient = (Client *)pointer;
+		Client * tempClient;
+		tempClient = (Client *)pointer;
 		this->amountReceived = tempClient->NBReceiveDataFromServer(this->received, EV_BUFFERSIZE);
 		break;
 	default:
-		Server * tempServer = (Server *)pointer;
+		Server * tempServer;
+		tempServer = (Server *)pointer;
 		this->amountReceived = tempServer->NBReceiveDataFromClient(this->received, EV_BUFFERSIZE);
 		break;
 	}
