@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="EventGenerator.cpp" />
     <ClCompile Include="GenericEvent.cpp" />
     <ClCompile Include="GenericState.cpp" />
     <ClCompile Include="Server.cpp" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
+    <ClInclude Include="EventGenerator.h" />
     <ClInclude Include="GenericEvent.h" />
     <ClInclude Include="GenericState.h" />
     <ClInclude Include="Server.h" />

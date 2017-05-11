@@ -3,9 +3,6 @@
 #include "GenericEvent.h"
 #include "GenericState.h"
 bool initProgram(void);
-void startConnection();
-genericEvent eventGenerator(void);
-void dispatcher(genericEvent * _event);
 
 using namespace std;
 
