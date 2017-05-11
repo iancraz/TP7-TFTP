@@ -72,7 +72,7 @@ recibe como parametros un arreglo de char(buffer) y un int,
 con la cantidad de elementos de dicho arreglo.
 devuelve la longitud del mensaje recibido si recibio, y si no recibio devuelve -1
 nota: NO ES BLOQUEANTE*/
-size_t Server::NBReceiveDataFromCliente(char * buffer_t, int bufferSize)
+size_t Server::NBReceiveDataFromClient(char * buffer_t, int bufferSize)
 {
 	size_t messageLength = 0;
 	boost::system::error_code error;

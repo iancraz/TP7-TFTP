@@ -18,7 +18,7 @@ public:
 	void setPortNumber(UINT32 port = 12345);
 	UINT32 getPortNumber();
 	size_t receiveDataFromClient(char * buffer_t, int bufferSize);
-	size_t NBReceiveDataFromCliente(char * buffer_t, int bufferSize);
+	size_t NBReceiveDataFromClient(char * buffer_t, int bufferSize);
 	bool sendData(char * dataToSend_t, unsigned int sizeData);
 protected:
 	UINT32 portNumber;
