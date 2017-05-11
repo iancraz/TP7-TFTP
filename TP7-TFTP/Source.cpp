@@ -10,7 +10,6 @@ int main(void)
 {
 	bool isServer = initProgram();
 	bool exit = false;
-	genericEvent myEvent;
 	while (!exit)
 	{
 		

@@ -147,6 +147,7 @@
     <ClCompile Include="GenericEvent.cpp" />
     <ClCompile Include="GenericState.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ServerDispatcher.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="GenericEvent.h" />
     <ClInclude Include="GenericState.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="ServerDispatcher.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
