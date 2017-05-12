@@ -10,8 +10,12 @@ public:
 	serverDispatcher(genericEvent * receivedEvent, Server * p2Server);
 	void nextStep();
 protected:
-	fstream myFile;
+	char * fileName;
+	std::fstream myFile;
 	genericEvent * myEvent;
 	genericState currentState;
 	Server * p2Server;
+	char package2Send[MAX_DATA_SIZE+2];
+	void setPackage2Send();
+	int fileSize;
 };
