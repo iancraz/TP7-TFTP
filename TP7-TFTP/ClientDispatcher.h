@@ -1,13 +1,13 @@
 #pragma once
-#include "Server.h"
+#include "Client.h"
 #include "GenericEvent.h"
 #include "GenericState.h"
 #include <fstream>
 
-class serverDispatcher
+class clientDispatcher
 {
 public:
-	serverDispatcher(genericEvent * receivedEvent, Server * p2Server);
+	clientDispatcher(genericEvent * receivedEvent, Client * p2Client);
 	void nextStep();
 protected:
 	char * fileName;
@@ -15,7 +15,6 @@ protected:
 	int fileSize;
 	genericEvent * myEvent;
 	genericState currentState;
-	Server * p2Server;
-	char package2Send[MAX_DATA_SIZE+2];
-	char lastPackageSent[MAX_DATA_SIZE + 2];
+	Client * p2Client;
+	char package2Send[MAX_DATA_SIZE + 2];
 };
