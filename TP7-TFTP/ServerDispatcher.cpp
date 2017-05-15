@@ -18,24 +18,20 @@ serverDispatcher::serverDispatcher(genericEvent * receivedEvent, Server * p2Serv
 	return;
 }
 
-void serverDispatcher::setPackage2Send()
-{
-	package2Send[0] = 0;
-	package2Send[1] = myEvent->eventCode;
-	return;
-}
 
 
 void serverDispatcher::nextStep()
 {
 	if (currentState.getStateCode() == WAITING)
 	{
+		package2Send[0] = 0;
 		switch (myEvent->eventCode) {
 		case WRQ:
 			currentState.setStateCode(RECEIVING);
 			for (uint i = 0; (i <= MAX_DATA_SIZE - 2) && (myEvent->received[i + 2] != 0); i++)
 				this->fileName[i] = myEvent->received[i + 2];
 			this->myFile.open(this->fileName, fstream::app);
+			package2Send[1] = ACK;
 			break;
 		case RRQ:
 			currentState.setStateCode(SENDING);
@@ -43,7 +39,7 @@ void serverDispatcher::nextStep()
 				this->fileName[i] = myEvent->received[i + 2];
 			this->myFile.open(this->fileName, fstream::in);
 			this->fileSize = myFile.gcount();
-			setPackage2Send();
+			package2Send[1] = DATA;
 			if (fileSize >= MAX_DATA_SIZE)
 			{
 				for (int i = 0, char c; i <= MAX_DATA_SIZE; i++)
@@ -65,8 +61,54 @@ void serverDispatcher::nextStep()
 				fileSize = 0;
 			}
 			break;
-		case ACK:
-
+		default:
+			package2Send[1] = EV_ERROR;
+			this->p2Server->sendData(package2Send, 2);
+			break;
 		}
 	}
+	else if (currentState.getStateCode() == RECEIVING)
+	{
+		package2Send[0] = 0;
+		switch (myEvent->eventCode) {
+		case DATA:
+			if (myEvent->amountReceived >= (MAX_DATA_SIZE + 2))
+				for (int i = 0, char c = 0; (i <= MAX_DATA_SIZE) && (c = myEvent->received[i + 2]); i++)
+					myFile.put(c);
+			else
+				for (int i = 0, char c = 0; (i <= myEvent->amountReceived) && (c = myEvent->received[i + 2]); i++)
+					myFile.put(c);	
+			package2Send[1] = ACK;
+			break;
+		default:
+			package2Send[1] = EV_ERROR;
+			this->p2Server->sendData(package2Send, 2);
+			break;
+		}
+	}
+	else if (SENDING)
+	{
+		package2Send[0] = 0;
+		switch (myEvent->eventCode) {
+		case ACK:
+			package2Send[1] = DATA;
+			this->myFile.seekg(myFile.gcount() - fileSize);
+			for (int i = 0, char c; i <= MAX_DATA_SIZE; i++)
+			{
+				myFile.get(c);
+				package2Send[i + 2] = c;
+			}
+			if ((myFile.gcount() - fileSize) >= MAX_DATA_SIZE)
+				fileSize -= MAX_DATA_SIZE;
+			else
+				fileSize = 0;
+			this->p2Server->sendData(package2Send, MAX_DATA_SIZE + 2);
+			break;
+		default:
+			package2Send[1] = EV_ERROR;
+			this->p2Server->sendData(package2Send, 2);
+			break;
+		}
+	}
+	return;
 }
