@@ -20,7 +20,7 @@ int main(void)
 bool initProgram(void)
 {
 	char temp;
-	cout << "Ingrese C si desea actuar como CLIENTE, o S si desea actuar como Servidor" << endl;
+	cout << "Type C if you want to act as a Client or S if you want to act as a Server." << endl;
 	cin >> temp;
 	switch (temp) {
 	case 'C':

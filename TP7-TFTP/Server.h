@@ -27,4 +27,3 @@ protected:
 	boost::asio::ip::tcp::acceptor* conectionServerAceptor;
 	boost::asio::ip::tcp::resolver::iterator endpoint;
 };
-
