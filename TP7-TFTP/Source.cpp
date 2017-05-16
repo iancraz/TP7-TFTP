@@ -35,7 +35,7 @@ int main(void)
 		eventQueue.getNextEvent();
 		svDisp.newEvent(&eventQueue.newEvent);
 	}
-	while ((isServer == true) && (exit == false))
+	while ((isServer == false) && (exit == false))
 	{
 		clDisp.nextStep();
 		eventQueue.getNextEvent();

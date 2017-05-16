@@ -140,9 +140,10 @@ int clientDispatcher::whatDidHeTypedIn()
 {
 	int answer=TYPE_ERROR;
 	char commandPrompt[MAX_DATA_SIZE+4];
-	for (int i = 0; i <= MAX_DATA_SIZE+4; i++)
+	for (int i = 0; i < MAX_DATA_SIZE+4; i++)
 		commandPrompt[i] = 0;
 	char c = 0;
+	getchar();
 	for (int i = 0; (i <= (MAX_DATA_SIZE+4))&&(c!='\n'); i++)
 	{
 		c = getchar();
