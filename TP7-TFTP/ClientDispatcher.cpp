@@ -42,7 +42,8 @@ void clientDispatcher::nextStep(void)
 			case ACK:
 				package2Send[1] = DATA;
 				this->myFile.seekg(myFile.gcount() - fileSize);
-				for (int i = 0, char c; i <= MAX_DATA_SIZE; i++)
+				char c;
+				for (int i = 0; i <= MAX_DATA_SIZE; i++)
 				{
 					myFile.get(c);
 					package2Send[i + 2] = c;
@@ -64,11 +65,17 @@ void clientDispatcher::nextStep(void)
 			switch (myEvent->eventCode) {
 			case DATA:
 				if (myEvent->amountReceived >= (MAX_DATA_SIZE + 2))
-					for (int i = 0, char c = 0; (i <= MAX_DATA_SIZE) && (c = myEvent->received[i + 2]); i++)
+				{
+					char c = 0;
+					for (int i = 0; (i <= MAX_DATA_SIZE) && (c = myEvent->received[i + 2]); i++)
 						myFile.put(c);
+				}
 				else
-					for (int i = 0, char c = 0; (i <= myEvent->amountReceived) && (c = myEvent->received[i + 2]); i++)
+				{
+					char c = 0;
+					for (int i = 0; (i <= myEvent->amountReceived) && (c = myEvent->received[i + 2]); i++)
 						myFile.put(c);
+				}
 				package2Send[1] = ACK;
 				break;
 			default:
@@ -135,7 +142,8 @@ int clientDispatcher::whatDidHeTypedIn()
 	char commandPrompt[MAX_DATA_SIZE+4];
 	for (int i = 0; i <= MAX_DATA_SIZE+4; i++)
 		commandPrompt[i] = 0;
-	for (int i = 0,char c=0; (i <= (MAX_DATA_SIZE+4))&&(c!='\n'); i++)
+	char c = 0;
+	for (int i = 0; (i <= (MAX_DATA_SIZE+4))&&(c!='\n'); i++)
 	{
 		c = getchar();
 		commandPrompt[i] = c;

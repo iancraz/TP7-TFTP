@@ -53,8 +53,9 @@ void serverDispatcher::nextStep()
 				package2Send[1] = DATA;
 				if (fileSize >= MAX_DATA_SIZE)
 				{
-					for (int i = 0, char c; i <= MAX_DATA_SIZE; i++)
+					for (int i = 0; i <= MAX_DATA_SIZE; i++)
 					{
+						char c;
 						myFile.get(c);
 						package2Send[i + 2] = c;
 					}
@@ -63,12 +64,13 @@ void serverDispatcher::nextStep()
 				}
 				else if (fileSize < MAX_DATA_SIZE)
 				{
-					for (int i = 0, char c; i <= fileSize; i++)
+					for (int i = 0; i <= fileSize; i++)
 					{
+						char c;
 						myFile.get(c);
 						package2Send[i + 2] = c;
 					}
-					this->p2Server->sendData(package2Send, fileSize + 2);
+					this->p2Server->sendData(package2Send, (uint)fileSize + 2);
 					fileSize = 0;
 				}
 				break;
@@ -84,11 +86,17 @@ void serverDispatcher::nextStep()
 			switch (myEvent->eventCode) {
 			case DATA:
 				if (myEvent->amountReceived >= (MAX_DATA_SIZE + 2))
-					for (int i = 0, char c = 0; (i <= MAX_DATA_SIZE) && (c = myEvent->received[i + 2]); i++)
+				{
+					char c = 0;
+					for (int i = 0; (i <= MAX_DATA_SIZE) && (c = myEvent->received[i + 2]); i++)
 						myFile.put(c);
+				}
 				else
-					for (int i = 0, char c = 0; (i <= myEvent->amountReceived) && (c = myEvent->received[i + 2]); i++)
+				{
+					char c = 0;
+					for (int i = 0; (i <= myEvent->amountReceived) && (c = myEvent->received[i + 2]); i++)
 						myFile.put(c);
+				}
 				package2Send[1] = ACK;
 				break;
 			default:
@@ -104,7 +112,8 @@ void serverDispatcher::nextStep()
 			case ACK:
 				package2Send[1] = DATA;
 				this->myFile.seekg(myFile.gcount() - fileSize);
-				for (int i = 0, char c; i <= MAX_DATA_SIZE; i++)
+				char c;
+				for (int i = 0; i <= MAX_DATA_SIZE; i++)
 				{
 					myFile.get(c);
 					package2Send[i + 2] = c;

@@ -1,6 +1,7 @@
 #include "EventGenerator.h"
 #include "Server.h"
 #include "Client.h"
+#define EV_BUFFERSIZE	(MAX_DATA_SIZE+2)
 typedef unsigned int uint;
 
 eventGenerator::eventGenerator(void * pointer, char type)

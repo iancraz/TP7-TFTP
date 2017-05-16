@@ -10,3 +10,9 @@ genericEvent::genericEvent()
 	this->amountReceived = 0;
 	return;
 }
+
+genericEvent::~genericEvent()
+{
+	delete received;
+	return;
+}

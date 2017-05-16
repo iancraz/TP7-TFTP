@@ -14,7 +14,7 @@ public:
 protected:
 	char * fileName;
 	std::fstream myFile;
-	int fileSize;
+	std::streamsize fileSize;
 	genericEvent * myEvent;
 	genericState currentState;
 	Server * p2Server;
