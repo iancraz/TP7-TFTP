@@ -43,6 +43,7 @@ void serverDispatcher::nextStep()
 					this->fileName[i] = myEvent->received[i + 2];
 				this->myFile.open(this->fileName, fstream::app);
 				package2Send[1] = ACK;
+				this->p2Server->sendData(package2Send,2);
 				break;
 			case RRQ:
 				currentState.setStateCode(SENDING);
