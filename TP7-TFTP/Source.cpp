@@ -14,25 +14,32 @@ int main(void)
 {
 	bool isServer = initProgram();
 	bool exit = false;
-	int mainEvent;
 	eventGenerator eventQueue;
+	Server server(69);
+	Client client;
 	if (isServer == true)
 	{
-		Server server(69);
 		server.waitForClient();
 		eventQueue.setEventGenerator(&server, SERVER);
 	}
 	else
 	{
-		Client client;
 		client.ConnectToServer("localhost","69");
 		eventQueue.setEventGenerator(&client, CLIENT);
 	}
-	mainEvent = eventQueue.getNextEvent();
-
+	serverDispatcher svDisp(&eventQueue.newEvent, &server);
+	clientDispatcher clDisp(&eventQueue.newEvent, &client);
 	while ((isServer == true)&&(exit==false))
 	{
-		
+		svDisp.nextStep();
+		eventQueue.getNextEvent();
+		svDisp.newEvent(&eventQueue.newEvent);
+	}
+	while ((isServer == true) && (exit == false))
+	{
+		clDisp.nextStep();
+		eventQueue.getNextEvent();
+		clDisp.newEvent(&eventQueue.newEvent);
 	}
 
 	return EXIT_SUCCESS;

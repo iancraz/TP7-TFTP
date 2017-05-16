@@ -13,10 +13,10 @@ public:
 	eventGenerator();
 	void setEventGenerator(void * _pointer, char type);
 	int getNextEvent();
+	genericEvent newEvent;
 protected:
 	boost::timer::cpu_timer eventTimer;
 	boost::timer::cpu_times pastTime;
-	genericEvent newEvent;
 	void * pointer;
 	char type;
 };
