@@ -18,4 +18,7 @@ protected:
 	Client * p2Client;
 	char package2Send[MAX_DATA_SIZE + 2];
 	char lastPackageSent[MAX_DATA_SIZE + 2];
+	void whatDoYouWannaDo();
+private:
+	int whatDidHeTypedIn();
 };
