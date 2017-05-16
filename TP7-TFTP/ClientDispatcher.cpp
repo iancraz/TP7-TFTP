@@ -21,6 +21,12 @@ clientDispatcher::clientDispatcher(genericEvent * receivedEvent, Client * p2Clie
 	return;
 }
 
+clientDispatcher::~clientDispatcher()
+{
+	delete fileName;
+	return;
+}
+
 void clientDispatcher::nextStep(void)
 {
 	if (this->currentState.getStateCode() == WAITING)
@@ -78,6 +84,13 @@ void clientDispatcher::nextStep(void)
 		lastPackageSent[i] = package2Send[i];
 	return;
 }
+
+void clientDispatcher::newEvent(genericEvent * receivedEvent)
+{
+	this->myEvent = receivedEvent;
+	return;
+}
+
 
 void clientDispatcher::whatDoYouWannaDo()
 {

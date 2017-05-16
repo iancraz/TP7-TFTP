@@ -8,6 +8,8 @@ class serverDispatcher
 {
 public:
 	serverDispatcher(genericEvent * receivedEvent, Server * p2Server);
+	~serverDispatcher();
+	void newEvent(genericEvent * receivedEvent);
 	void nextStep();
 protected:
 	char * fileName;

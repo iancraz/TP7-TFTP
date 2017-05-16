@@ -10,6 +10,8 @@ class eventGenerator
 {
 public:
 	eventGenerator(void * _pointer,char type);
+	eventGenerator();
+	void setEventGenerator(void * _pointer, char type);
 	int getNextEvent();
 protected:
 	boost::timer::cpu_timer eventTimer;

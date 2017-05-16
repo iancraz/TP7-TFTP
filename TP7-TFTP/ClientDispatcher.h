@@ -8,6 +8,8 @@ class clientDispatcher
 {
 public:
 	clientDispatcher(genericEvent * receivedEvent, Client * p2Client);
+	~clientDispatcher();
+	void newEvent(genericEvent * receivedEvent);
 	void nextStep();
 protected:
 	char * fileName;

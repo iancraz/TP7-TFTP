@@ -12,6 +12,21 @@ eventGenerator::eventGenerator(void * pointer, char type)
 	return;
 }
 
+eventGenerator::eventGenerator()
+{
+	this->pointer = NULL;
+	return;
+}
+
+void eventGenerator::setEventGenerator(void * pointer, char type)
+{
+	this->type = type;
+	this->pointer = pointer;
+	this->eventTimer.start();
+	this->pastTime = this->eventTimer.elapsed();
+	return;
+}
+
 int eventGenerator::getNextEvent()
 {
 	switch (this->type) {

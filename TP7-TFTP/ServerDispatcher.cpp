@@ -17,8 +17,17 @@ serverDispatcher::serverDispatcher(genericEvent * receivedEvent, Server * p2Serv
 	this->fileSize = 0;
 	return;
 }
+serverDispatcher::~serverDispatcher()
+{
+	delete fileName;
+	return;
+}
 
-
+void serverDispatcher::newEvent(genericEvent * receivedEvent)
+{
+	this->myEvent = receivedEvent;
+	return;
+}
 
 void serverDispatcher::nextStep()
 {
