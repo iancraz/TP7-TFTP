@@ -161,7 +161,7 @@ int clientDispatcher::whatDidHeTypedIn()
 			}
 		}
 	}
-	else if (commandPrompt[0] = 'G')
+	else if (commandPrompt[0] == 'G')
 	{
 		if (commandPrompt[1] == 'E')
 		{
