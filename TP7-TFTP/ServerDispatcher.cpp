@@ -31,8 +31,8 @@ void serverDispatcher::newEvent(genericEvent * receivedEvent)
 
 void serverDispatcher::nextStep()
 {
-	if (myEvent->eventCode != TIMEOUT)
-	{
+	//if (myEvent->eventCode != TIMEOUT)
+	//{
 		if (currentState.getStateCode() == WAITING)
 		{
 			package2Send[0] = 0;
@@ -75,9 +75,11 @@ void serverDispatcher::nextStep()
 					fileSize = 0;
 				}
 				break;
+			case NONE:
+				break;
 			default:
-				package2Send[1] = EV_ERROR;
-				this->p2Server->sendData(package2Send, 2);
+				//package2Send[1] = EV_ERROR;
+				//this->p2Server->sendData(package2Send, 2);
 				break;
 			}
 		}
@@ -99,6 +101,8 @@ void serverDispatcher::nextStep()
 						myFile.put(c);
 				}
 				package2Send[1] = ACK;
+				break;
+			case NONE:
 				break;
 			default:
 				package2Send[1] = EV_ERROR;
@@ -125,15 +129,17 @@ void serverDispatcher::nextStep()
 					fileSize = 0;
 				this->p2Server->sendData(package2Send, MAX_DATA_SIZE + 2);
 				break;
+			case NONE:
+				break;
 			default:
 				package2Send[1] = EV_ERROR;
 				this->p2Server->sendData(package2Send, 2);
 				break;
 			}
 		}
-	}
-	else
-		this->p2Server->sendData(lastPackageSent, MAX_DATA_SIZE + 2);
+	//}
+/*	else
+		this->p2Server->sendData(lastPackageSent, MAX_DATA_SIZE + 2);*/
 	for (int i = 0; i <= (MAX_DATA_SIZE+2); i++)
 		lastPackageSent[i] = package2Send[i];
 	return;

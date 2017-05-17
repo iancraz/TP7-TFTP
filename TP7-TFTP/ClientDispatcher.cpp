@@ -33,8 +33,8 @@ void clientDispatcher::nextStep(void)
 	{
 		whatDoYouWannaDo();
 	}
-	else if ((this->myEvent->eventCode != TIMEOUT))
-	{
+	//else if ((this->myEvent->eventCode != TIMEOUT))
+	//{
 		if (this->currentState.getStateCode() == SENDING)
 		{
 			package2Send[0] = 0;
@@ -53,6 +53,8 @@ void clientDispatcher::nextStep(void)
 				else
 					fileSize = 0;
 				this->p2Client->sendData(package2Send, MAX_DATA_SIZE + 2);
+				break;
+			case NONE:
 				break;
 			default:
 				package2Send[1] = EV_ERROR;
@@ -78,15 +80,17 @@ void clientDispatcher::nextStep(void)
 				}
 				package2Send[1] = ACK;
 				break;
+			case NONE:
+				break;
 			default:
 				package2Send[1] = EV_ERROR;
 				this->p2Client->sendData(package2Send, 2);
 				break;
 			}
 		}
-	}
-	else
-		this->p2Client->sendData(lastPackageSent, MAX_DATA_SIZE + 2);
+	//}
+	/*else
+		this->p2Client->sendData(lastPackageSent, MAX_DATA_SIZE + 2);*/
 	for (int i = 0; i <= (MAX_DATA_SIZE + 2); i++)
 		lastPackageSent[i] = package2Send[i];
 	return;
@@ -199,7 +203,8 @@ int clientDispatcher::whatDidHeTypedIn()
 			}
 		}
 	}
-
+	for (int i = 0; (i <= MAX_DATA_SIZE); i++)
+		fileName[i] == '\n' ? fileName[i] = 0 : fileName[i];
 	switch (answer) {
 	case PUT:
 		myFile.open(this->fileName, fstream::in);

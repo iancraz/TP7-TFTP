@@ -45,24 +45,26 @@ int eventGenerator::getNextEvent()
 	if (this->newEvent.amountReceived)
 	{
 		switch (newEvent.received[1]) {
-		case 1:
+		case RRQ:
 			newEvent.eventCode = RRQ;
 			break;
-		case 2:
+		case WRQ:
 			newEvent.eventCode = WRQ;
 			break;
-		case 3:
+		case DATA:
 			newEvent.eventCode = DATA;
 			break;
-		case 4:
+		case ACK:
 			newEvent.eventCode = ACK;
 			break;
-		case 5:
+		case EV_ERROR:
 			newEvent.eventCode = EV_ERROR;
 			break;
 		}
 	}
 	else
+		newEvent.eventCode = NONE;
+	/*else
 	{
 		boost::timer::cpu_times elapsedSeconds = this->eventTimer.elapsed();
 		if ((elapsedSeconds.wall - this->pastTime.wall) > 1e9)
@@ -70,6 +72,6 @@ int eventGenerator::getNextEvent()
 			newEvent.eventCode = TIMEOUT;
 			this->pastTime = this->eventTimer.elapsed();
 		}
-	}
+	}*/
 	return newEvent.eventCode;
 }
