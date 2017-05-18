@@ -116,7 +116,6 @@ void serverDispatcher::nextStep()
 			switch (myEvent->eventCode) {
 			case ACK:
 				package2Send[1] = DATA;
-				this->myFile.seekg(myFile.gcount() - fileSize);
 				char c;
 				for (int i = 0; i <= MAX_DATA_SIZE; i++)
 				{

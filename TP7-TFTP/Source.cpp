@@ -1,3 +1,14 @@
+/*
+TP7:	TFTP
+Grupo 5
+
+Nicolás Mestanza
+Paulo Navarro
+Ian Diaz
+
+Programa de transimsion de datos TFTP para Estructura de Datos y Algoritmos.
+*/
+
 #include <iostream>
 #include <ctime>
 #include "Server.h"

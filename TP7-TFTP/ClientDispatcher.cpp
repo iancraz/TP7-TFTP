@@ -35,13 +35,12 @@ void clientDispatcher::nextStep(void)
 	}
 	//else if ((this->myEvent->eventCode != TIMEOUT))
 	//{
-		if (this->currentState.getStateCode() == SENDING)
+	else if (this->currentState.getStateCode() == SENDING)
 		{
 			package2Send[0] = 0;
 			switch (myEvent->eventCode) {
 			case ACK:
 				package2Send[1] = DATA;
-				this->myFile.seekg(myFile.gcount() - fileSize);
 				char c;
 				for (int i = 0; i <= MAX_DATA_SIZE; i++)
 				{
@@ -51,7 +50,10 @@ void clientDispatcher::nextStep(void)
 				if ((myFile.gcount() - fileSize) >= MAX_DATA_SIZE)
 					fileSize -= MAX_DATA_SIZE;
 				else
+				{
 					fileSize = 0;
+					currentState.setStateCode(WAITING);
+				}
 				this->p2Client->sendData(package2Send, MAX_DATA_SIZE + 2);
 				break;
 			case NONE:
